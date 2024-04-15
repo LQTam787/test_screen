@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trang Bài Thi</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Danh sách câu hỏi</h1>
+    <ul id="question-list"></ul>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const questionList = document.getElementById('question-list');
+      
+      // Fetch danh sách câu hỏi từ backend
+      try {
+        const response = await fetch('/api/questions');
+        const questions = await response.json();
+        
+        // Hiển thị danh sách câu hỏi
+        questions.forEach(question => {
+          const li = document.createElement('li');
+          li.textContent = question.content;
+          questionList.appendChild(li);
+        });
+      } catch (error) {
+        console.error('Lỗi khi fetch danh sách câu hỏi:', error);
+      }
+    });
+  </script>
+</body>
+</html>
